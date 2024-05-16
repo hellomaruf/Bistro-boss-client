@@ -14,7 +14,7 @@ function OrderOnline() {
   return (
     <div className="max-w-7xl mx-auto my-5">
       <SectionHeader
-        time={"--From 11:00am to 10:00pm--"}
+        shorts={"--From 11:00am to 10:00pm--"}
         title={"oder online"}
       />
       <Swiper
