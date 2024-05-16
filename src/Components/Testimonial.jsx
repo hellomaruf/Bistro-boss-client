@@ -16,7 +16,7 @@ function Testimonial() {
         setReviews(data);
       });
   }, []);
-  console.log(reviews);
+ 
   return (
     <div className="my-20">
       <div className=" ">
