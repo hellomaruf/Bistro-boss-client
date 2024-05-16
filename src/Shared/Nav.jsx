@@ -8,7 +8,7 @@ function Nav() {
         className={({ isActive }) =>
           isActive
             ? "text-yellow-200 pr-5 font-medium"
-            : "text-gray-800 pr-5 font-medium"
+            : "text-gray-100 pr-5 font-medium"
         }
       >
         Home
@@ -18,7 +18,7 @@ function Nav() {
         className={({ isActive }) =>
           isActive
             ? "text-yellow-200 pr-5 font-medium"
-            : "text-gray-800 pr-5 font-medium"
+            : "text-gray-100 pr-5 font-medium"
         }
       >
         Dashboard
@@ -28,7 +28,7 @@ function Nav() {
         className={({ isActive }) =>
           isActive
             ? "text-yellow-200 pr-5 font-medium"
-            : "text-gray-800 pr-5 font-medium"
+            : "text-gray-100 pr-5 font-medium"
         }
       >
         Our Menu
@@ -38,7 +38,7 @@ function Nav() {
         className={({ isActive }) =>
           isActive
             ? "text-yellow-200 pr-5 font-medium"
-            : "text-gray-800 pr-5 font-medium"
+            : "text-gray-100 pr-5 font-medium"
         }
       >
         Shop Now
@@ -48,7 +48,7 @@ function Nav() {
         className={({ isActive }) =>
           isActive
             ? "text-yellow-200 pr-5 font-medium"
-            : "text-gray-800 pr-5 font-medium"
+            : "text-gray-100 pr-5 font-medium"
         }
       >
         Contact Us
@@ -58,7 +58,7 @@ function Nav() {
 
   return (
     <div>
-      <div className=" bg-gray-900 bg-opacity-15 text-gray-900">
+      <div className=" bg-gray-900 bg-opacity-25 backdrop-blur-md fixed z-10 w-full text-gray-100">
         <div className="navbar max-w-7xl mx-auto">
           <div className="navbar-start">
             <div className="dropdown">
