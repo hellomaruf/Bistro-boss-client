@@ -5,7 +5,7 @@ function Features() {
   return (
     <div
       style={{ backgroundImage: `url(${feature})` }}
-      className="bg-cover py-10 my-10"
+      className="bg-cover py-10 my-20 bg-fixed"
     >
       <div className=" max-w-6xl mx-auto ">
         <div className=" text-white">
@@ -26,6 +26,16 @@ function Features() {
               dedicated to ensuring your dining experience is nothing short of
               extraordinary.
             </p>
+            <a
+              className="group relative inline-block overflow-hidden border border-white rounded-md px-8 py-3 focus:outline-none focus:ring"
+              href="#"
+            >
+              <span className="absolute inset-x-0 bottom-0 h-[2px] bg-white transition-all group-hover:h-full group-active:bg-indigo-500"></span>
+
+              <span className="relative text-sm font-medium text-white transition-colors group-hover:text-black">
+                Read More
+              </span>
+            </a>
           </div>
         </div>
       </div>
