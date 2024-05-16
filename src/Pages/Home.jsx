@@ -1,4 +1,5 @@
 import About from "../Components/About";
+import Features from "../Components/Features";
 import Hero from "../Components/Hero";
 import OrderOnline from "../Components/OrderOnline";
 import PopularMenu from "../Components/PopularMenu";
@@ -10,7 +11,8 @@ function Home() {
       <Hero />
       <OrderOnline/>
       <About />
-      <PopularMenu/>
+      <PopularMenu />
+      <Features/>
     </div>
   );
 }
