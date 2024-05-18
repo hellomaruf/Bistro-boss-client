@@ -6,6 +6,7 @@ import pizzabg from "../assets/menu/pizza-bg.jpg";
 import SectionHeader from "../Components/SectionHeader";
 import useMenu from "./../Hooks/useMenu";
 import MenuCard from "../Shared/MenuCard";
+import { Link } from "react-router-dom";
 function Menu() {
   const [menu] = useMenu();
   const offers = menu.filter((item) => item.category === "offered");
@@ -14,6 +15,7 @@ function Menu() {
   // const soup = menu.filter((item) => item.category === "soup");
   // const drinks = menu.filter((item) => item.category === "drinks");
   // const salad = menu.filter((item) => item.category === "salad");
+
   return (
     <div>
       <Helmet>
@@ -32,6 +34,19 @@ function Menu() {
             <MenuCard key={index} menu={item} />
           ))}
         </div>
+        <div className="flex items-center justify-center">
+          <Link
+            to={`/shop/offered`}
+            className="group relative inline-block overflow-hidden border  border-gray-900 rounded-md px-8 py-3 focus:outline-none focus:ring"
+            href="#"
+          >
+            <span className="absolute inset-x-0 bottom-0 h-[2px] bg-gray-900 transition-all group-hover:h-full group-active:bg-indigo-500"></span>
+
+            <span className="relative text-sm font-medium text-gray-900 transition-colors group-hover:text-white">
+              ORDER YOUR FAVOURITE FOOD
+            </span>
+          </Link>
+        </div>
       </div>
       <Cover
         height={"150px"}
@@ -47,6 +62,19 @@ function Menu() {
             <MenuCard key={index} menu={item} />
           ))}
         </div>
+        <div className="flex items-center justify-center">
+          <Link
+            to={`/shop/dessert`}
+            className="group relative inline-block overflow-hidden border  border-gray-900 rounded-md px-8 py-3 focus:outline-none focus:ring"
+            href="#"
+          >
+            <span className="absolute inset-x-0 bottom-0 h-[2px] bg-gray-900 transition-all group-hover:h-full group-active:bg-indigo-500"></span>
+
+            <span className="relative text-sm font-medium text-gray-900 transition-colors group-hover:text-white">
+              ORDER YOUR FAVOURITE FOOD
+            </span>
+          </Link>
+        </div>
       </div>
       <Cover
         height={"150px"}
@@ -61,6 +89,19 @@ function Menu() {
           {pizza.map((item, index) => (
             <MenuCard key={index} menu={item} />
           ))}
+        </div>
+        <div className="flex items-center justify-center">
+          <Link
+            to={`/shop/pizza`}
+            className="group relative inline-block overflow-hidden border  border-gray-900 rounded-md px-8 py-3 focus:outline-none focus:ring"
+            href="#"
+          >
+            <span className="absolute inset-x-0 bottom-0 h-[2px] bg-gray-900 transition-all group-hover:h-full group-active:bg-indigo-500"></span>
+
+            <span className="relative text-sm font-medium text-gray-900 transition-colors group-hover:text-white">
+              ORDER YOUR FAVOURITE FOOD
+            </span>
+          </Link>
         </div>
       </div>
     </div>

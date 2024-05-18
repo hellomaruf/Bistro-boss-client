@@ -34,7 +34,7 @@ function Nav() {
         Our Menu
       </NavLink>
       <NavLink
-        to="/shop"
+        to="/shop/salad"
         className={({ isActive }) =>
           isActive
             ? "text-yellow-200 pr-5 font-medium"
