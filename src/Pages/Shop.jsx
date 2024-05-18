@@ -6,12 +6,18 @@ import shopBg from "../assets/shop/banner2.jpg";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+// import required modules
+import { Pagination } from "swiper/modules";
 
 function Shop() {
   const [menu] = useMenu();
   console.log(menu);
   const categories = ["salad", "pizza", "soup", "dessert", "drinks"];
-
   const { category } = useParams();
   const initialIndex = categories.indexOf(category);
   const [tabIndex, setTabIndex] = useState(initialIndex);
@@ -20,7 +26,12 @@ function Shop() {
   const soup = menu.filter((item) => item.category === "soup");
   const drinks = menu.filter((item) => item.category === "drinks");
   const salad = menu.filter((item) => item.category === "salad");
-  console.log(category);
+  const pagination = {
+    clickable: true,
+    renderBullet: function (index, className) {
+      return '<span class="' + className + '">' + (index + 1) + "</span>";
+    },
+  };
   return (
     <div>
       <Cover
@@ -41,10 +52,20 @@ function Shop() {
           </TabList>
 
           <TabPanel>
-            <div className="grid grid-cols-3 gap-6">
-              {salad.map((item, index) => (
-                <ItemsCard key={index} items={item} />
-              ))}
+            <div className="">
+              <Swiper
+                pagination={pagination}
+                modules={[Pagination]}
+                className="mySwiper"
+              >
+                <SwiperSlide>
+                  <div className="grid grid-cols-3 gap-6">
+                    {salad.map((item, index) => (
+                      <ItemsCard key={index} items={item} />
+                    ))}
+                  </div>
+                </SwiperSlide>
+              </Swiper>
             </div>
           </TabPanel>
           <TabPanel>
