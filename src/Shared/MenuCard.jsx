@@ -1,6 +1,5 @@
 
 function MenuCard({ menu }) {
-  console.log(menu);
   return (
     <div className="flex gap-5">
       <img
