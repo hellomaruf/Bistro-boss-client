@@ -1,14 +1,36 @@
 import loginImg from "../assets/others/authentication2.png";
-import bg from "../assets/others/authentication.png";
+import {
+  LoadCanvasTemplate,
+  loadCaptchaEnginge,
+  validateCaptcha,
+} from "react-simple-captcha";
+import { useEffect, useRef, useState } from "react";
 function Login() {
+  const captchaRef = useRef(null);
+  const [disabled, setDisabled] = useState(true);
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(password, email);
+  };
+
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
+
+  const handleCaptcha = () => {
+    const value = captchaRef.current.value;
+    if (validateCaptcha(value)) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  };
   return (
     <div>
-      <section
-        style={{
-          backgroundImage: `url(${bg})`,
-        }}
-        className="relative flex flex-wrap lg:h-screen z-10 lg:items-center"
-      >
+      <section className="relative flex flex-wrap lg:h-screen z-10 lg:items-center">
         <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
           <div className="mx-auto max-w-lg text-center">
             <h1 className="text-2xl font-bold sm:text-3xl">
@@ -21,7 +43,11 @@ function Login() {
             </p>
           </div>
 
-          <form action="#" className="mx-auto mb-0 mt-8 max-w-md space-y-4">
+          <form
+            onSubmit={handleLogin}
+            action="#"
+            className="mx-auto mb-0 mt-8 max-w-md space-y-4 bg-white p-5 rounded-xl"
+          >
             <div>
               <label htmlFor="email" className="sr-only">
                 Email
@@ -30,7 +56,8 @@ function Login() {
               <div className="relative">
                 <input
                   type="email"
-                  className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  name="email"
+                  className="w-full rounded-lg border border-gray-400 p-4 pe-12 text-sm shadow-sm"
                   placeholder="Enter email"
                 />
 
@@ -60,8 +87,9 @@ function Login() {
 
               <div className="relative">
                 <input
+                  name="password"
                   type="password"
-                  className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  className="w-full rounded-lg border border-gray-400 p-4 pe-12 text-sm shadow-sm"
                   placeholder="Enter password"
                 />
 
@@ -89,7 +117,21 @@ function Login() {
                 </span>
               </div>
             </div>
-
+            <div>
+              <div className="relative">
+                <LoadCanvasTemplate />
+                <input
+                  type="text"
+                  ref={captchaRef}
+                  name="captcha"
+                  className="w-full rounded-lg border border-gray-400 p-4 pe-12 text-sm shadow-sm"
+                  placeholder="Type this captcha avobe"
+                />
+              </div>
+            </div>
+            <button onClick={handleCaptcha} className="btn btn-outline  w-full">
+              Validate
+            </button>
             <div className="">
               <p className="text-sm text-gray-500 py-3">
                 No account?
@@ -99,8 +141,9 @@ function Login() {
               </p>
 
               <button
+                disabled={disabled}
                 type="submit"
-                className="inline-block rounded-lg w-full bg-orange-400 px-5 py-3 text-sm font-medium text-white"
+                className="inline-block rounded-lg w-full disabled:bg-orange-200 bg-orange-400 px-5 py-3 text-sm font-medium text-white"
               >
                 Sign in
               </button>
