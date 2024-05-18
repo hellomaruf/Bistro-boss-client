@@ -4,8 +4,10 @@ import {
   loadCaptchaEnginge,
   validateCaptcha,
 } from "react-simple-captcha";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { AuthContext } from "../Provider/AuthProvider";
 function Login() {
+  const { createUser } = useContext(AuthContext);
   const captchaRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
   const handleLogin = (e) => {
@@ -14,6 +16,13 @@ function Login() {
     const email = form.email.value;
     const password = form.password.value;
     console.log(password, email);
+    createUser(email, password)
+      .then((res) => {
+        console.log(res.user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
