@@ -9,6 +9,7 @@ import { useState } from "react";
 
 function Shop() {
   const [menu] = useMenu();
+  console.log(menu);
   const categories = ["salad", "pizza", "soup", "dessert", "drinks"];
 
   const { category } = useParams();
