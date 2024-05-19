@@ -3,8 +3,11 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 
 function Nav() {
-  const {name} = useContext(AuthContext)
-  console.log(name);
+  const { user, logoutUser } = useContext(AuthContext);
+  const handleSignOut = () => {
+    logoutUser();
+  };
+
   const link = (
     <>
       <NavLink
@@ -57,16 +60,18 @@ function Nav() {
       >
         Contact Us
       </NavLink>
-      <NavLink
-        to="/login"
-        className={({ isActive }) =>
-          isActive
-            ? "text-yellow-200 pr-5 font-medium"
-            : "text-gray-100 pr-5 font-medium"
-        }
-      >
-        Login
-      </NavLink>
+      {!user && (
+        <NavLink
+          to="/login"
+          className={({ isActive }) =>
+            isActive
+              ? "text-yellow-200 pr-5 font-medium"
+              : "text-gray-100 pr-5 font-medium"
+          }
+        >
+          Login
+        </NavLink>
+      )}
     </>
   );
 
@@ -108,11 +113,14 @@ function Nav() {
               <h4 className="tracking-[11px] text-lg">Restaurant</h4>
             </div>
           </div>
-
-          <div className="navbar-end">
-            <ul className="menu menu-horizontal px-1">{link}</ul>
-            <a className="btn">Button</a>
-          </div>
+          {user && (
+            <div className="navbar-end">
+              <ul className="menu menu-horizontal px-1">{link}</ul>
+              <a onClick={handleSignOut} className="btn">
+                Sign Out
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>
