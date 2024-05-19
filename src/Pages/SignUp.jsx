@@ -5,12 +5,20 @@ function SignUp() {
   const {
     register,
     handleSubmit,
+    reset,
 
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
     console.log(data);
+    reset({
+      name: "",
+      email: "",
+      password: "",
+    });
   };
+
+  const handleReset = () => {};
   return (
     <div>
       <section className="relative flex flex-wrap lg:h-screen z-10 lg:items-center">
@@ -150,6 +158,7 @@ function SignUp() {
               </p>
 
               <button
+                onClick={handleReset}
                 type="submit"
                 className="inline-block rounded-lg w-full disabled:bg-orange-200 bg-orange-400 px-5 py-3 text-sm font-medium text-white"
               >
