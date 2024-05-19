@@ -4,13 +4,15 @@ import {
   loadCaptchaEnginge,
   validateCaptcha,
 } from "react-simple-captcha";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 function Login() {
   const { loginUser } = useContext(AuthContext);
-
-  const [disabled, setDisabled] = useState(true);
+  // const [disabled, setDisabled] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -21,6 +23,7 @@ function Login() {
         console.log(res.user);
         if (res.user) {
           alert("Login Successfully");
+          navigate(from);
         }
       })
       .catch((error) => {
@@ -35,9 +38,9 @@ function Login() {
   const handleCaptcha = (e) => {
     const value = e.target.value;
     if (validateCaptcha(value)) {
-      setDisabled(false);
+      // setDisabled(false);
     } else {
-      setDisabled(true);
+      // setDisabled(true);
     }
   };
   return (
@@ -152,8 +155,9 @@ function Login() {
                 </Link>
               </p>
 
+              {/* todo disable */}
               <button
-                disabled={disabled}
+                disabled={false}
                 type="submit"
                 className="inline-block rounded-lg w-full disabled:bg-orange-200 bg-orange-400 px-5 py-3 text-sm font-medium text-white"
               >

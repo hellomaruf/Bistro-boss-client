@@ -16,7 +16,6 @@ import { Pagination } from "swiper/modules";
 
 function Shop() {
   const [menu] = useMenu();
-  console.log(menu);
   const categories = ["salad", "pizza", "soup", "dessert", "drinks"];
   const { category } = useParams();
   const initialIndex = categories.indexOf(category);
