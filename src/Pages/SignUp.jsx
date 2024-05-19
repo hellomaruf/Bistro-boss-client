@@ -1,48 +1,14 @@
 import loginImg from "../assets/others/authentication2.png";
-import {
-  LoadCanvasTemplate,
-  loadCaptchaEnginge,
-  validateCaptcha,
-} from "react-simple-captcha";
-import { useContext, useEffect, useRef, useState } from "react";
-import { AuthContext } from "../Provider/AuthProvider";
-import { Link } from "react-router-dom";
-function Login() {
-  const { createUser } = useContext(AuthContext);
-  const captchaRef = useRef(null);
-  const [disabled, setDisabled] = useState(true);
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const email = form.email.value;
-    const password = form.password.value;
-    createUser(email, password)
-      .then((res) => {
-        console.log(res.user);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    loadCaptchaEnginge(6);
-  }, []);
-
-  const handleCaptcha = () => {
-    const value = captchaRef.current.value;
-    if (validateCaptcha(value)) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
-  };
+import { Link } from 'react-router-dom';
+function SignUp() {
   return (
     <div>
       <section className="relative flex flex-wrap lg:h-screen z-10 lg:items-center">
         <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
           <div className="mx-auto max-w-lg text-center">
-            <h1 className="text-2xl font-bold sm:text-3xl">Login Now!</h1>
+            <h1 className="text-2xl font-bold sm:text-3xl">
+              SignUp Now!
+            </h1>
 
             <p className="mt-4 text-gray-500">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Et libero
@@ -51,7 +17,7 @@ function Login() {
           </div>
 
           <form
-            onSubmit={handleLogin}
+           
             action="#"
             className="mx-auto mb-0 mt-8 max-w-md space-y-4 bg-white p-5 rounded-xl"
           >
@@ -125,34 +91,19 @@ function Login() {
               </div>
             </div>
             <div>
-              <div className="relative">
-                <LoadCanvasTemplate />
-                <input
-                  type="text"
-                  ref={captchaRef}
-                  name="captcha"
-                  className="w-full rounded-lg border border-gray-400 p-4 pe-12 text-sm shadow-sm"
-                  placeholder="Type this captcha avobe"
-                />
-              </div>
+           
             </div>
-            <button onClick={handleCaptcha} className="btn btn-outline  w-full">
-              Validate
-            </button>
+          
             <div className="">
               <p className="text-sm text-gray-500 py-3">
-                No account?
-                <Link
-                  to="/signUp"
-                  className="underline font-semibold text-orange-400"
-                  href="#"
-                >
-                  Sign up
+                Already have account?
+                <Link to='/login' className="underline font-semibold text-orange-400" href="#">
+                  Login
                 </Link>
               </p>
 
               <button
-                disabled={disabled}
+                
                 type="submit"
                 className="inline-block rounded-lg w-full disabled:bg-orange-200 bg-orange-400 px-5 py-3 text-sm font-medium text-white"
               >
@@ -167,7 +118,7 @@ function Login() {
         </div>
       </section>
     </div>
-  );
+  )
 }
 
-export default Login;
+export default SignUp
