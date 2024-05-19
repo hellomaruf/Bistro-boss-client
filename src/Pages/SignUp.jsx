@@ -1,7 +1,11 @@
 import { useForm } from "react-hook-form";
 import loginImg from "../assets/others/authentication2.png";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../Provider/AuthProvider";
 function SignUp() {
+  const { createUser } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
@@ -11,6 +15,16 @@ function SignUp() {
   } = useForm();
   const onSubmit = (data) => {
     console.log(data);
+    createUser(data.email, data.password)
+      .then((res) => {
+        console.log(res.user);
+        if (res.user) {
+          alert("SignUp Successfully");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     reset({
       name: "",
       email: "",
@@ -18,7 +32,6 @@ function SignUp() {
     });
   };
 
-  const handleReset = () => {};
   return (
     <div>
       <section className="relative flex flex-wrap lg:h-screen z-10 lg:items-center">
@@ -158,7 +171,6 @@ function SignUp() {
               </p>
 
               <button
-                onClick={handleReset}
                 type="submit"
                 className="inline-block rounded-lg w-full disabled:bg-orange-200 bg-orange-400 px-5 py-3 text-sm font-medium text-white"
               >

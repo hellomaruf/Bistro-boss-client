@@ -4,21 +4,24 @@ import {
   loadCaptchaEnginge,
   validateCaptcha,
 } from "react-simple-captcha";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { Link } from "react-router-dom";
 function Login() {
-  const { createUser } = useContext(AuthContext);
-  const captchaRef = useRef(null);
+  const { loginUser } = useContext(AuthContext);
+
   const [disabled, setDisabled] = useState(true);
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    createUser(email, password)
+    loginUser(email, password)
       .then((res) => {
         console.log(res.user);
+        if (res.user) {
+          alert("Login Successfully");
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -29,8 +32,8 @@ function Login() {
     loadCaptchaEnginge(6);
   }, []);
 
-  const handleCaptcha = () => {
-    const value = captchaRef.current.value;
+  const handleCaptcha = (e) => {
+    const value = e.target.value;
     if (validateCaptcha(value)) {
       setDisabled(false);
     } else {
@@ -129,16 +132,14 @@ function Login() {
                 <LoadCanvasTemplate />
                 <input
                   type="text"
-                  ref={captchaRef}
+                  onBlur={handleCaptcha}
                   name="captcha"
                   className="w-full rounded-lg border border-gray-400 p-4 pe-12 text-sm shadow-sm"
                   placeholder="Type this captcha avobe"
                 />
               </div>
             </div>
-            <button onClick={handleCaptcha} className="btn btn-outline  w-full">
-              Validate
-            </button>
+
             <div className="">
               <p className="text-sm text-gray-500 py-3">
                 No account?
