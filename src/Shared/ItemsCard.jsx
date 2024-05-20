@@ -28,6 +28,14 @@ function ItemsCard({ items }) {
         .post(`/carts`, cartItem)
         .then((res) => {
           console.log(res.data);
+          if (res.data) {
+            Swal.fire({
+              title: "Successfull!",
+              text: "Do you want to continue",
+              icon: "success",
+              confirmButtonText: "Cool",
+            });
+          }
           refetch();
         })
         .catch((error) => console.log(error));
