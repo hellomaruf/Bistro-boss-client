@@ -2,13 +2,15 @@ import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import { IoMdCart } from "react-icons/io";
+import useCarts from './../Hooks/useCarts';
 
 function Nav() {
   const { user, logoutUser } = useContext(AuthContext);
   const handleSignOut = () => {
     logoutUser();
   };
-
+  const [cart] = useCarts()
+  console.log(cart);
   const link = (
     <>
       <NavLink
@@ -109,7 +111,7 @@ function Nav() {
           <span className="inline-flex relative  items-center justify-center rounded-full bg-yellow-50 px-2 py-2 mr-5 text-gray-900">
             <IoMdCart />
             <small className="bg-red-600 -top-1 -right-1 absolute text-white px-1 rounded-full">
-              0
+             {cart?.length}
             </small>
           </span>
           {user ? (

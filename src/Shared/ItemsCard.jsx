@@ -4,8 +4,10 @@ import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 // import axios from "axios";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
+import useCarts from "../Hooks/useCarts";
 
 function ItemsCard({ items }) {
+  const [, refetch] = useCarts();
   const { user } = useContext(AuthContext);
   const { name, image, recipe, price, _id } = items;
   const sliceRecipe = recipe.slice(0, 70);
@@ -24,7 +26,10 @@ function ItemsCard({ items }) {
       };
       axiosSecure
         .post(`/carts`, cartItem)
-        .then((res) => console.log(res.data))
+        .then((res) => {
+          console.log(res.data);
+          refetch();
+        })
         .catch((error) => console.log(error));
     } else {
       Swal.fire({
