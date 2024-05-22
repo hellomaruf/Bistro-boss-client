@@ -4,14 +4,14 @@ import { RiDeleteBinLine } from "react-icons/ri";
 
 function Cart() {
   const [cart] = useCarts();
-  console.log(cart);
-  const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+ 
+  const totalPrice = cart?.reduce((total, item) => total + item.price, 0);
   return (
-    <div>
+    <div className="overflow-y-visible">
       <SectionHeader shorts={"---My Cart---"} title={"WANNA ADD MORE?"} />
-      <div className="mx-14 bg-orange-50 p-4">
+      <div className="mx-14 bg-orange-50 p-4 ">
         <div className="flex justify-between items-center pb-4">
-          <h2 className="text-2xl font-medium">Total Order : {cart.length}</h2>
+          <h2 className="text-2xl font-medium">Total Order : {cart?.length}</h2>
           <h2 className="text-2xl font-medium">Total Price : {totalPrice}</h2>
           <button className="btn bg-orange-400 hover:bg-orange-500 text-white">
             Pay
@@ -31,7 +31,7 @@ function Cart() {
                 </tr>
               </thead>
               <tbody>
-                {cart.map((item, index) => (
+                {cart?.map((item, index) => (
                   <tr key={index}>
                     <td>
                       <div className="flex items-center gap-3">

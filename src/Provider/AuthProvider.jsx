@@ -3,6 +3,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import { auth } from "../Firebase/firebase.config";
@@ -23,11 +24,20 @@ function AuthProvider({ children }) {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  //update user profile
+  const updateUserProfile = (name, photo) => {
+    setLoading(true);
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+    });
+  };
+
   // logout
   const logoutUser = () => {
-    return signOut(auth)
-  }
-  
+    return signOut(auth);
+  };
+
   // observer
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -35,6 +45,8 @@ function AuthProvider({ children }) {
         console.log("Current User --->", currentUser);
         setUser(currentUser);
         setLoading(false);
+      } else {
+        setLoading(false)
       }
     });
     return () => {
@@ -47,7 +59,8 @@ function AuthProvider({ children }) {
     loginUser,
     user,
     loading,
-    logoutUser
+    logoutUser,
+    updateUserProfile
   };
   return (
     <div>

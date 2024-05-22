@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
 import loginImg from "../assets/others/authentication2.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
+import { axiosPublic } from "../Hooks/usePublic";
 function SignUp() {
   const { createUser } = useContext(AuthContext);
-
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -17,9 +18,19 @@ function SignUp() {
     console.log(data);
     createUser(data.email, data.password)
       .then((res) => {
-        console.log(res.user);
         if (res.user) {
           alert("SignUp Successfully");
+          navigate('/')
+          const userInfo = {
+            name: data.name,
+            email: data.email,
+          };
+          console.log(userInfo);
+          axiosPublic.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              console.log("user created successfully");
+            }
+          });
         }
       })
       .catch((error) => {
@@ -120,7 +131,24 @@ function SignUp() {
                 </span>
               </div>
             </div>
+            {/* <div>
+              <label htmlFor="email" className="sr-only">
+                photo
+              </label>
 
+              <div className="relative">
+                <input
+                  type="text"
+                  name="photo"
+                  {...register("photo", { required: true })}
+                  className="w-full rounded-lg border border-gray-400 p-4 pe-12 text-sm shadow-sm"
+                  placeholder="Enter PhotoURL"
+                />
+                {errors.name && (
+                  <small className="text-red-500">Name field is required</small>
+                )}
+              </div>
+            </div> */}
             <div>
               <label htmlFor="password" className="sr-only">
                 Password
