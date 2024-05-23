@@ -4,9 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { axiosPublic } from "../Hooks/usePublic";
+import { FaGoogle } from "react-icons/fa";
 function SignUp() {
   const { createUser } = useContext(AuthContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -20,7 +21,7 @@ function SignUp() {
       .then((res) => {
         if (res.user) {
           alert("SignUp Successfully");
-          navigate('/')
+          navigate("/");
           const userInfo = {
             name: data.name,
             email: data.email,
@@ -204,6 +205,9 @@ function SignUp() {
               >
                 Sign in
               </button>
+            </div>
+            <div className="btn bg-gray-500 w-full hover:bg-gray-600 text-white">
+              <FaGoogle /> Google
             </div>
           </form>
         </div>

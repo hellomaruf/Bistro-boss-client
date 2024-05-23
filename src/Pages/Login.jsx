@@ -7,8 +7,9 @@ import {
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaGoogle } from "react-icons/fa";
 function Login() {
-  const { loginUser } = useContext(AuthContext);
+  const { loginUser, googleSignIn } = useContext(AuthContext);
   // const [disabled, setDisabled] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
@@ -42,6 +43,17 @@ function Login() {
     } else {
       // setDisabled(true);
     }
+  };
+
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then((res) => {
+        console.log(res.user);
+        navigate(from)
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
   return (
     <div>
@@ -163,6 +175,12 @@ function Login() {
               >
                 Sign in
               </button>
+            </div>
+            <div
+              onClick={handleGoogleSignIn}
+              className="btn bg-gray-500 w-full hover:bg-gray-600 text-white"
+            >
+              <FaGoogle /> Google
             </div>
           </form>
         </div>
