@@ -7,7 +7,7 @@ function Cart() {
  
   const totalPrice = cart?.reduce((total, item) => total + item.price, 0);
   return (
-    <div className="overflow-y-visible">
+    <div className="scrollbar  scrollbar-thumb-sky-700 scrollbar-track-sky-300 h-screen overflow-y-scroll">
       <SectionHeader shorts={"---My Cart---"} title={"WANNA ADD MORE?"} />
       <div className="mx-14 bg-orange-50 p-4 ">
         <div className="flex justify-between items-center pb-4">
