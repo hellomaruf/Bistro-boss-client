@@ -25,7 +25,7 @@ function AllUsers() {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    }).then(async(result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
         await axiosSecure.delete(`/users/${id}`).then((res) => {
           if (res.data.deletedCount > 0) {
@@ -37,6 +37,19 @@ function AllUsers() {
             refetch();
           }
         });
+      }
+    });
+  };
+  const handleMakeAdmin = async (user) => {
+    await axiosSecure.patch(`/users/admin/${user?._id}`).then((res) => {
+      if (res.data.modifiedCount > 0) {
+        Swal.fire({
+          title: `${user?.name} is now Admin!`,
+          text: "Do you want to continue",
+          icon: "success",
+          confirmButtonText: "Cool",
+        });
+        refetch();
       }
     });
   };
@@ -67,7 +80,13 @@ function AllUsers() {
                 <td>{item?.name}</td>
                 <td>{item?.email}</td>
                 <td>
-                  <HiMiniUsers className="text-xl " />
+                  {item?.role === "admin" ? (
+                    "Admin"
+                  ) : (
+                    <button onClick={() => handleMakeAdmin(item)}>
+                      <HiMiniUsers className="text-xl " />
+                    </button>
+                  )}
                 </td>
                 <td>
                   <button onClick={() => handleUsersDelete(item?._id)}>
