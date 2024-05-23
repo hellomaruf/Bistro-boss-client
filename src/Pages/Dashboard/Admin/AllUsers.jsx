@@ -3,25 +3,52 @@ import SectionHeader from "../../../Components/SectionHeader";
 import useAxiosSecure from "./../../../Hooks/useAxiosSecure";
 import { HiMiniUsers } from "react-icons/hi2";
 import { RiDeleteBin4Line } from "react-icons/ri";
+import Swal from "sweetalert2";
 
 function AllUsers() {
   let count = 1;
   const axiosSecure = useAxiosSecure();
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: "users",
     queryFn: async () => {
       const res = await axiosSecure.get("/users");
       return res.data;
     },
   });
-  console.log(data);
+  const handleUsersDelete = (id) => {
+    console.log(id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        await axiosSecure.delete(`/users/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+            refetch();
+          }
+        });
+      }
+    });
+  };
   return (
     <div>
       <div className="">
         <SectionHeader shorts={"---How many?---"} title={"MANAGE ALL USERS"} />
       </div>
       <div className="overflow-x-auto mx-6">
-      <div className=" text-2xl font-semibold mb-4">Total Users : {data?.length}</div>
+        <div className=" text-2xl font-semibold mb-4">
+          Total Users : {data?.length}
+        </div>
         <table className="table">
           {/* head */}
           <thead>
@@ -37,10 +64,16 @@ function AllUsers() {
             {data?.map((item, index) => (
               <tr key={index}>
                 <th>{count++}</th>
-                <td>{item.name}</td>
-                <td>{item.email}</td>
-                <td><HiMiniUsers className="text-xl " /></td>
-                <td><RiDeleteBin4Line className="text-xl text-red-500"/></td>
+                <td>{item?.name}</td>
+                <td>{item?.email}</td>
+                <td>
+                  <HiMiniUsers className="text-xl " />
+                </td>
+                <td>
+                  <button onClick={() => handleUsersDelete(item?._id)}>
+                    <RiDeleteBin4Line className="text-xl text-red-500" />
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
