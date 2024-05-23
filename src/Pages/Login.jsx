@@ -8,8 +8,11 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
+import usePublic, { axiosPublic } from "./../Hooks/usePublic";
+import toast from "react-hot-toast";
 function Login() {
   const { loginUser, googleSignIn } = useContext(AuthContext);
+  const axiosPublic = usePublic();
   // const [disabled, setDisabled] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
@@ -23,7 +26,7 @@ function Login() {
       .then((res) => {
         console.log(res.user);
         if (res.user) {
-          alert("Login Successfully");
+          toast.success("Login Successfully");
           navigate(from);
         }
       })
@@ -49,7 +52,17 @@ function Login() {
     googleSignIn()
       .then((res) => {
         console.log(res.user);
-        navigate(from)
+        toast.success("Login Successfully");
+
+        const userInfo = {
+          name: res.user.displayName,
+          email: res.user.email,
+        };
+        console.log(userInfo);
+        axiosPublic
+          .post("/users", userInfo)
+          .then((res) => console.log(res.data));
+        navigate(from);
       })
       .catch((error) => {
         console.log(error.message);
