@@ -9,12 +9,14 @@ import {
 import { createContext, useEffect, useState } from "react";
 import { auth } from "../Firebase/firebase.config";
 import { GoogleAuthProvider } from "firebase/auth";
+import usePublic from "./../Hooks/usePublic";
 
 export const AuthContext = createContext();
 function AuthProvider({ children }) {
-  const googleProvider = new GoogleAuthProvider()
+  const googleProvider = new GoogleAuthProvider();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const axiosPublic = usePublic();
   // Create a user
   const createUser = (email, password) => {
     setLoading(true);
@@ -29,8 +31,8 @@ function AuthProvider({ children }) {
 
   // Google signin
   const googleSignIn = () => {
-    return signInWithPopup(auth, googleProvider)
-  }
+    return signInWithPopup(auth, googleProvider);
+  };
 
   //update user profile
   const updateUserProfile = (name, photo) => {
@@ -52,9 +54,18 @@ function AuthProvider({ children }) {
       if (currentUser) {
         console.log("Current User --->", currentUser);
         setUser(currentUser);
+        if (currentUser) {
+          const userInfo = { email: currentUser?.email };
+          axiosPublic.post("/jwt", userInfo).then((res) => {
+            if (res?.data?.token) {
+              localStorage.setItem("access-token", res?.data?.token);
+            } 
+          });
+        }
         setLoading(false);
       } else {
-        setLoading(false)
+        setLoading(false);
+        
       }
     });
     return () => {
@@ -68,7 +79,10 @@ function AuthProvider({ children }) {
     user,
     loading,
     logoutUser,
-    updateUserProfile,googleSignIn
+    updateUserProfile,
+    googleSignIn,
+    setLoading,
+    setUser
   };
   return (
     <div>

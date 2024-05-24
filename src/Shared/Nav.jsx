@@ -5,9 +5,10 @@ import { IoMdCart } from "react-icons/io";
 import useCarts from "./../Hooks/useCarts";
 
 function Nav() {
-  const { user, logoutUser } = useContext(AuthContext);
+  const { user, logoutUser, setUser } = useContext(AuthContext);
   const handleSignOut = () => {
     logoutUser();
+    setUser();
   };
   const [cart] = useCarts();
   console.log(cart);
