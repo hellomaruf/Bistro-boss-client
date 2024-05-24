@@ -1,5 +1,11 @@
 import { CgMenuGridR } from "react-icons/cg";
-import { FaBook, FaCalendar, FaHome, FaShoppingBag, FaUsers } from "react-icons/fa";
+import {
+  FaBook,
+  FaCalendar,
+  FaHome,
+  FaShoppingBag,
+  FaUsers,
+} from "react-icons/fa";
 import { GiVibratingShield } from "react-icons/gi";
 import { IoBookmarksOutline } from "react-icons/io5";
 import { LuHome } from "react-icons/lu";
@@ -10,7 +16,7 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../Hooks/useAdmin";
 function Dashboard() {
   // const isAdmin = true;
-  const [isAdmin] = useAdmin()
+  const [isAdmin] = useAdmin();
   return (
     <div className="flex">
       {/* Dashboard side bar */}
@@ -48,7 +54,7 @@ function Dashboard() {
                   to="/dashboard/addItems"
                 >
                   {" "}
-                  <MdAddToPhotos/> 
+                  <MdAddToPhotos />
                   Add Items
                 </NavLink>
               </li>
@@ -57,11 +63,11 @@ function Dashboard() {
                   className={({ isActive }) =>
                     isActive ? "text-white bg-orange-500" : "text-gray-900"
                   }
-                  to="/dashboard/ManageItems"
+                  to="/dashboard/manageItem"
                 >
                   {" "}
                   <CgMenuGridR />
-                 Manage Items
+                  Manage Items
                 </NavLink>
               </li>
               <li>
@@ -73,7 +79,7 @@ function Dashboard() {
                 >
                   {" "}
                   <FaBook />
-                 Manage Booking
+                  Manage Booking
                 </NavLink>
               </li>
               <li>
@@ -85,7 +91,7 @@ function Dashboard() {
                 >
                   {" "}
                   <FaUsers />
-                 All Users
+                  All Users
                 </NavLink>
               </li>
             </>
