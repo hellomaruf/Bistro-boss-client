@@ -1,34 +1,61 @@
+import { useForm } from "react-hook-form";
+import usePublic from "../../Hooks/usePublic";
+
 function AddItems() {
+  const axiosPublic = usePublic();
+  const img_hosting_key = import.meta.env.VITE_IMG_HOSTING_KEY;
+  const img_hosting_api = `https://api.imgbb.com/1/upload?key=${img_hosting_key}`;
+  const { register, handleSubmit, reset } = useForm();
+
+  const onSubmit = async (Alldata) => {
+      console.log(Alldata);
+    const img = Alldata?.image[0];
+    const formData = new FormData();
+    formData.append("image", img);
+    const {data} = await axiosPublic.post(img_hosting_api, formData);
+    const photo = data?.data?.url;
+    console.log(photo);
+    reset();
+  };
   return (
     <div>
       <section className="">
         <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-x-16 gap-y-8 ">
             <div className="rounded-lg bg-gray-100 p-8 shadow-lg lg:col-span-3 lg:p-12">
-              <form action="#" className="space-y-4">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                action="#"
+                className="space-y-4"
+              >
                 <div>
                   <label className=" text-xs" htmlFor="name">
                     Recipe Name
                   </label>
                   <input
+                    {...register("name", { required: true })}
                     className="w-full rounded-lg  border-gray-200  p-3 text-sm"
-                    placeholder="Name"
+                    placeholder="Enter Recipe Name"
                     type="text"
-                    id="name"
+                    name="name"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div>
-                    <label className="text-xs" htmlFor="email">
+                  <div className="">
+                    <label className=" text-xs" htmlFor="name">
                       Category
                     </label>
-                    <input
-                      className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                      placeholder="Enter Recipe Category"
-                      type=""
-                      name="category"
-                    />
+                    <select
+                      className="w-full rounded-lg  border-gray-200  p-3 text-sm"
+                      {...register("category", { required: true })}
+                    >
+                      <option value="salad">Salad</option>
+                      <option value="pizza">Pizza</option>
+                      <option value="soup">Soup</option>
+                      <option value="dessert">Desert</option>
+                      <option value="drinks">Drinks</option>
+                    </select>
                   </div>
 
                   <div>
@@ -36,6 +63,7 @@ function AddItems() {
                       Price
                     </label>
                     <input
+                      {...register("price", { required: true })}
                       className="w-full rounded-lg border-gray-200 p-3 text-sm"
                       placeholder="Enter Item Price"
                       name="price"
@@ -50,12 +78,18 @@ function AddItems() {
                   </label>
 
                   <textarea
+                    {...register("details", { required: true })}
                     className="w-full rounded-lg border-gray-200 p-3 text-sm"
                     placeholder="Enter Recipe Details"
                     rows="8"
                     name="details"
                   ></textarea>
                 </div>
+                <input
+                  {...register("image", { required: true })}
+                  type="file"
+                  className="file-input bg-gray-200 w-full max-w-xs"
+                />
 
                 <div className="mt-4">
                   <button

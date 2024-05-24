@@ -14,7 +14,7 @@ function Dashboard() {
   return (
     <div className="flex">
       {/* Dashboard side bar */}
-      <div className="w-64 bg-orange-400 h-screen">
+      <div className="w-64 bg-orange-400 h-screen overflow-y-auto">
         <div className="flex flex-col items-center pt-5 pb-3">
           <div className="">
             <h2 className="text-3xl uppercase text-white font-bold">
@@ -179,7 +179,7 @@ function Dashboard() {
         </ul>
       </div>
       {/* Dashboard content */}
-      <div className="flex-1 pl-8 pt-0">
+      <div className="flex-1 pl-8 pt-0 h-screen overflow-y-auto">
         <Outlet />
       </div>
     </div>
