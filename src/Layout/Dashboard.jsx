@@ -7,8 +7,10 @@ import { MdAddToPhotos, MdEmail } from "react-icons/md";
 import { TiThMenu } from "react-icons/ti";
 import { VscPreview } from "react-icons/vsc";
 import { Link, NavLink, Outlet } from "react-router-dom";
+import useAdmin from "../Hooks/useAdmin";
 function Dashboard() {
-  const isAdmin = true;
+  // const isAdmin = true;
+  const [isAdmin] = useAdmin()
   return (
     <div className="flex">
       {/* Dashboard side bar */}

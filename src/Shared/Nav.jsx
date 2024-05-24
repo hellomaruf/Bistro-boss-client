@@ -11,7 +11,6 @@ function Nav() {
     setUser();
   };
   const [cart] = useCarts();
-  console.log(cart);
   const link = (
     <>
       <NavLink
