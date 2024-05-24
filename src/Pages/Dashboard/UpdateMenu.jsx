@@ -1,9 +1,11 @@
 import { useForm } from "react-hook-form";
 import SectionHeader from "../../Components/SectionHeader";
+import { useLoaderData } from "react-router-dom";
 
 function UpdateMenu() {
+  const item = useLoaderData();
+  console.log(item);
   const { register, handleSubmit } = useForm();
-
   const onSubmit = (data) => console.log(data);
   return (
     <div>

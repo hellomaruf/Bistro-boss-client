@@ -68,8 +68,10 @@ export const router = createBrowserRouter([
         element: <ManageItems />,
       },
       {
-        path: 'updateItem',
-        element:<UpdateMenu/>
+        path: "updateItem/:id",
+        element: <UpdateMenu />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/menu/${params.id}`),
       },
       {
         path: "addItems",

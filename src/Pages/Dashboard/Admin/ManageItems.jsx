@@ -11,6 +11,7 @@ function ManageItems() {
   const axiosSecure = useAxiosSecure();
   const [items, refetch] = useAllMenu();
   const handleMenuDelete = (item) => {
+    console.log(item);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -72,7 +73,10 @@ function ManageItems() {
                   <td>{item?.name}</td>
                   <td>{item?.price}</td>
                   <th>
-                    <Link to={`/dashboard/updateItem`} className="btn btn-ghost bg-orange-400 text-white rounded-full hover:bg-orange-500">
+                    <Link
+                      to={`/dashboard/updateItem/${item?._id}`}
+                      className="btn btn-ghost bg-orange-400 text-white rounded-full hover:bg-orange-500"
+                    >
                       <FaEdit className="text-xl" />
                     </Link>
                   </th>
