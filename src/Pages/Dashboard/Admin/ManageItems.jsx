@@ -2,11 +2,37 @@ import { FaEdit } from "react-icons/fa";
 import SectionHeader from "../../../Components/SectionHeader";
 import useAllMenu from "../../../Hooks/useAllMenu";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 function ManageItems() {
   let count = 1;
-  const [items] = useAllMenu();
-  console.log(items);
+  const axiosSecure = useAxiosSecure();
+  const [items, refetch] = useAllMenu();
+  const handleMenuDelete = (item) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/menu/${item?._id}`);
+        console.log(res.data);
+        if (res.data.deletedCount === 1) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+          });
+          refetch();
+        }
+      }
+    });
+  };
   return (
     <div>
       <div className="">
@@ -50,7 +76,10 @@ function ManageItems() {
                     </button>
                   </th>
                   <th>
-                    <button className="btn rounded-full ">
+                    <button
+                      onClick={() => handleMenuDelete(item)}
+                      className="btn rounded-full "
+                    >
                       <RiDeleteBin6Line className="text-xl text-red-500" />
                     </button>
                   </th>
