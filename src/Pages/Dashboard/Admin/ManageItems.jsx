@@ -4,6 +4,7 @@ import useAllMenu from "../../../Hooks/useAllMenu";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 function ManageItems() {
   let count = 1;
@@ -71,9 +72,9 @@ function ManageItems() {
                   <td>{item?.name}</td>
                   <td>{item?.price}</td>
                   <th>
-                    <button className="btn btn-ghost bg-orange-400 text-white rounded-full hover:bg-orange-500">
+                    <Link to={`/dashboard/updateItem`} className="btn btn-ghost bg-orange-400 text-white rounded-full hover:bg-orange-500">
                       <FaEdit className="text-xl" />
-                    </button>
+                    </Link>
                   </th>
                   <th>
                     <button
