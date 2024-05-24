@@ -1,20 +1,43 @@
 import { useForm } from "react-hook-form";
 import usePublic from "../../Hooks/usePublic";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 function AddItems() {
   const axiosPublic = usePublic();
+  const axiosSecure = useAxiosSecure();
   const img_hosting_key = import.meta.env.VITE_IMG_HOSTING_KEY;
   const img_hosting_api = `https://api.imgbb.com/1/upload?key=${img_hosting_key}`;
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = async (Alldata) => {
-      console.log(Alldata);
+    console.log(Alldata);
     const img = Alldata?.image[0];
     const formData = new FormData();
     formData.append("image", img);
-    const {data} = await axiosPublic.post(img_hosting_api, formData);
+    const { data } = await axiosPublic.post(img_hosting_api, formData);
     const photo = data?.data?.url;
     console.log(photo);
+    if (data?.success) {
+      const menuInfo = {
+        name: Alldata?.name,
+        category: Alldata?.category,
+        price: Alldata?.price,
+        recipe: Alldata?.details,
+        image: data?.data?.url,
+      };
+      console.log(menuInfo);
+      await axiosSecure.post("/menu", menuInfo).then((res) => {
+        if (res.data) {
+          Swal.fire({
+            title: `Successfully Added ${Alldata?.name}!`,
+            text: "Do you want to continue",
+            icon: "success",
+            confirmButtonText: "Cool",
+          });
+        }
+      });
+    }
     reset();
   };
   return (
