@@ -14,7 +14,7 @@ function AdminRoute({ children }) {
   if (loading || isAdminLoading) {
     return <Spinner />;
   }
-  return <Navigate to="/login" state={location.pathname} replace></Navigate>;
+  return <Navigate to="/" state={location.pathname} replace></Navigate>;
 }
 
 export default AdminRoute;
