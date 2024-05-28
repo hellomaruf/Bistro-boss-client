@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 import SectionHeader from "../../Components/SectionHeader";
 import useCarts from "../../Hooks/useCarts";
 import { RiDeleteBinLine } from "react-icons/ri";
 
 function Cart() {
   const [cart] = useCarts();
- 
+
   const totalPrice = cart?.reduce((total, item) => total + item.price, 0);
   return (
     <div className="scrollbar  scrollbar-thumb-sky-700 scrollbar-track-sky-300 h-screen overflow-y-scroll">
@@ -13,9 +14,12 @@ function Cart() {
         <div className="flex justify-between items-center pb-4">
           <h2 className="text-2xl font-medium">Total Order : {cart?.length}</h2>
           <h2 className="text-2xl font-medium">Total Price : {totalPrice}</h2>
-          <button className="btn bg-orange-400 hover:bg-orange-500 text-white">
+          <Link
+            to="/dashboard/payment"
+            className="btn bg-orange-400 hover:bg-orange-500 text-white"
+          >
             Pay
-          </button>
+          </Link>
         </div>
         {/* table */}
         <div className="">

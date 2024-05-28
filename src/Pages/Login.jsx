@@ -8,7 +8,7 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
-import usePublic, { axiosPublic } from "./../Hooks/usePublic";
+import usePublic from "./../Hooks/usePublic";
 import toast from "react-hot-toast";
 function Login() {
   const { loginUser, googleSignIn } = useContext(AuthContext);
