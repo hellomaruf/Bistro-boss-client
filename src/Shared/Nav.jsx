@@ -3,9 +3,11 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import { IoMdCart } from "react-icons/io";
 import useCarts from "./../Hooks/useCarts";
+import useAdmin from "../Hooks/useAdmin";
 
 function Nav() {
   const { user, logoutUser, setUser } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
   const handleSignOut = () => {
     logoutUser();
     setUser();
@@ -23,16 +25,31 @@ function Nav() {
       >
         Home
       </NavLink>
-      <NavLink
-        to="/dashboard"
-        className={({ isActive }) =>
-          isActive
-            ? "text-yellow-200 pr-5 font-medium"
-            : "text-gray-100 pr-5 font-medium"
-        }
-      >
-        Dashboard
-      </NavLink>
+      {user && isAdmin && (
+        <NavLink
+          to="/dashboard/adminHome"
+          className={({ isActive }) =>
+            isActive
+              ? "text-yellow-200 pr-5 font-medium"
+              : "text-gray-100 pr-5 font-medium"
+          }
+        >
+          Dashboard
+        </NavLink>
+      )}
+      {user && !isAdmin && (
+        <NavLink
+          to="/dashboard/userHome"
+          className={({ isActive }) =>
+            isActive
+              ? "text-yellow-200 pr-5 font-medium"
+              : "text-gray-100 pr-5 font-medium"
+          }
+        >
+          Dashboard
+        </NavLink>
+      )}
+
       <NavLink
         to="/menu"
         className={({ isActive }) =>

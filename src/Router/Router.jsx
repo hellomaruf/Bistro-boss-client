@@ -14,7 +14,8 @@ import AdminRoute from "./AdminRoute";
 import ManageItems from "../Pages/Dashboard/Admin/ManageItems";
 import UpdateMenu from "../Pages/Dashboard/UpdateMenu";
 import Payment from "../Pages/Dashboard/Payment/Payment";
-
+import UserHome from "../Pages/Dashboard/UserHome";
+import AdminHome from "../Pages/Dashboard/Admin/AdminHome";
 
 export const router = createBrowserRouter([
   {
@@ -60,7 +61,15 @@ export const router = createBrowserRouter([
         path: "payment",
         element: <Payment />,
       },
+      {
+        path: "userHome",
+        element: <UserHome />,
+      },
       // Admin Routes
+      {
+        path: 'adminHome',
+        element:<AdminRoute><AdminHome/></AdminRoute>
+      },
       {
         path: "allUsers",
         element: (

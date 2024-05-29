@@ -39,7 +39,7 @@ function Dashboard() {
                   className={({ isActive }) =>
                     isActive ? "text-white bg-orange-500" : "text-gray-900"
                   }
-                  to="/dashboard/home"
+                  to="/dashboard/adminHome"
                 >
                   {" "}
                   <FaHome />
@@ -102,7 +102,7 @@ function Dashboard() {
                   className={({ isActive }) =>
                     isActive ? "text-white bg-orange-500" : "text-gray-900"
                   }
-                  to="/dashboard/home"
+                  to="/dashboard/userHome"
                 >
                   {" "}
                   <FaHome />
