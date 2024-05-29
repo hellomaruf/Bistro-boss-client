@@ -15,7 +15,7 @@ function AdminHome() {
       return res.data;
     },
   });
-  console.log(data?.users);
+
   return (
     <div className="mt-5">
       {/* Admin stats */}
